@@ -1,0 +1,75 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+mqtt:
+  hostUrl: tcp://120.46.149.254:1883
+  username: admin
+  password: public
+  clientid: mqtt_send_client_springboot
+  cleanSession: true
+  reconnect: true
+  #连接超时
+  timeout: 1000
+  #设置会话心跳时间
+  keepalive: 100
+  defaultTopic: client:report:1
+  isOpen: true
+  qos: 1
+
+server:
+  port: 8090
+  tomcat:
+    threads:
+      max: 500
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 10MB
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/qianrushi?serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    druid:
+      initial-size: 3
+      min-idle: 3
+      max-active: 100
+      max-wait: 60000
+      stat-view-servlet:
+        login-username: admin
+        login-password: 123456
+        enabled: true
+        url-pattern: /druid/*
+
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 100
+      validation-query: select 1
+    sql-script-encoding: UTF-8
+#  redis:
+#    database: 0
+#    lettuce:
+#      pool:
+#        max-active: 100
+#        max-idle: 100
+#        min-idle: 0
+#        max-wait: -1
+#    timeout: 5000
+#    host: 172.16.2.172
+
+#mybatis:
+#  type-aliases-package: cn.edu.xmu.wishes.chat.model.po
+#  mapper-locations: classpath*:cn.edu.xmu.wishes.chat.mapper/*.xml
+#  configuration:
+#    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    map-underscore-to-camel-case: true
